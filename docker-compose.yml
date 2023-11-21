@@ -8,6 +8,7 @@ services:
       - "8000:8000"
   redis:
     image: redis
+    container_name: redis-news-labels
     restart: always
     expose:
       - "6379"

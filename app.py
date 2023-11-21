@@ -7,7 +7,7 @@ from sklearn.cluster import DBSCAN
 app = Flask(__name__)
 
 app.config['CACHE_TYPE'] = 'redis'
-app.config['CACHE_REDIS_HOST'] = 'localhost'
+app.config['CACHE_REDIS_HOST'] = 'redis-news-labels'
 app.config['CACHE_REDIS_PORT'] = 6379
 
 cache = Cache(app)
