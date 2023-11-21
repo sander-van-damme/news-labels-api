@@ -17,23 +17,23 @@ Depending on the size of the request, you may need to increase the timeout of th
 - **X-Open-Ai-Api-Key**: `your-api-key`
 
 ### Request Body (JSON)
-A list of news objects. Only the title properties is mandatory.
+A list of news objects.
 ```json
 [
   {
     "title": "string",
-    "description": "string"
+    "content": "string"
   }
 ]
 
 ```
 
 ### Response Body (JSON)
-The description and label property are optional.
+The label property is optional. All other properties from the request body are returned unchanged.
 ```json
 {
   "title": "string",
-  "description": "string",
+  "content": "string",
   "label": "string"
 }
 ```
