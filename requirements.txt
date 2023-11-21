@@ -2,4 +2,5 @@ openai
 scikit-learn
 Flask
 Flask-Caching
+redis
 gunicorn

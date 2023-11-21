@@ -5,8 +5,11 @@ from openai import OpenAI
 from sklearn.cluster import DBSCAN
 
 app = Flask(__name__)
-app.config['CACHE_TYPE'] = 'FileSystemCache'
-app.config['CACHE_DIR'] = '/tmp/'
+
+app.config['CACHE_TYPE'] = 'redis'
+app.config['CACHE_REDIS_HOST'] = 'localhost'
+app.config['CACHE_REDIS_PORT'] = 6379
+
 cache = Cache(app)
 
 
