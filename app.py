@@ -5,7 +5,7 @@ from openai import OpenAI
 from sklearn.cluster import DBSCAN
 
 app = Flask(__name__)
-app.config['CACHE_TYPE'] = 'simple'
+app.config['CACHE_TYPE'] = 'FileSystemCache'
 cache = Cache(app)
 
 
