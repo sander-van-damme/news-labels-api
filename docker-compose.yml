@@ -3,12 +3,13 @@ version: '3'
 services:
   app:
     build: .
+    container_name: news-labels-api
     restart: always
     ports:
       - "8000:8000"
   redis:
     image: redis
-    container_name: redis-news-labels
+    container_name: redis-news-labels-api
     restart: always
     expose:
       - "6379"
