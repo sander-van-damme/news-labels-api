@@ -6,6 +6,7 @@ from sklearn.cluster import DBSCAN
 
 app = Flask(__name__)
 app.config['CACHE_TYPE'] = 'FileSystemCache'
+app.config['CACHE_DIR'] = '/tmp/'
 cache = Cache(app)
 
 
@@ -18,7 +19,7 @@ def _to_string(obj):
 
 
 # Get the embedding of the input data.
-@cache.memoize(timeout=604800, key_prefix='get_embedding')  # Cache for 1 week
+@cache.memoize(timeout=604800)  # Cache for 1 week
 def get_embedding(open_ai_api_key, input_data):
     client = OpenAI(api_key=open_ai_api_key)
     response = client.embeddings.create(model="text-embedding-ada-002", input=_to_string(input_data))
@@ -35,7 +36,7 @@ def get_clusters(embeddings):
 
 
 # Get a label for the input data.
-@cache.memoize(timeout=604800, key_prefix='get_label')  # Cache for 1 week
+@cache.memoize(timeout=604800) # Cache for 1 week
 def get_label(open_ai_api_key, input_data):
     client = OpenAI(api_key=open_ai_api_key)
     completion = client.chat.completions.create(
