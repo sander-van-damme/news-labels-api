@@ -18,7 +18,7 @@ def _to_string(obj):
 
 
 # Get the embedding of the input data.
-@cache.memoize(timeout=604800)  # Cache for 1 week
+@cache.memoize(timeout=604800, key_prefix='get_embedding')  # Cache for 1 week
 def get_embedding(open_ai_api_key, input_data):
     client = OpenAI(api_key=open_ai_api_key)
     response = client.embeddings.create(model="text-embedding-ada-002", input=_to_string(input_data))
@@ -35,7 +35,7 @@ def get_clusters(embeddings):
 
 
 # Get a label for the input data.
-@cache.memoize(timeout=604800)  # Cache for 1 week
+@cache.memoize(timeout=604800, key_prefix='get_label')  # Cache for 1 week
 def get_label(open_ai_api_key, input_data):
     client = OpenAI(api_key=open_ai_api_key)
     completion = client.chat.completions.create(
@@ -58,9 +58,9 @@ def create_labels():
     # Get the embedding of each article.
     embedding_of_each_article = []
     for article in articles:
-        title = article.get('title')
-        description = article.get('description') if article.get('description') else ""
-        embedding_of_each_article.append(get_embedding(open_ai_api_key, [title, description]))
+        title = article.get('title') if article.get('title') else ""
+        content = article.get('content') if article.get('content') else ""
+        embedding_of_each_article.append(get_embedding(open_ai_api_key, [title, content]))
 
     # Get the cluster of each article.
     cluster_of_each_article = get_clusters(embedding_of_each_article)
