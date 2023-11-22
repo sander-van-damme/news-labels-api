@@ -2,6 +2,8 @@ version: '3'
 
 services:
   app:
+    requires:
+      - redis
     build: .
     container_name: news-labels-api
     restart: always
@@ -10,6 +12,7 @@ services:
   redis:
     image: redis
     container_name: redis-news-labels-api
+    command: redis-server --bind redis-news-labels-api --maxmemory 256mb --maxmemory-policy volatile-ttl --appendonly yes
     restart: always
     expose:
       - "6379"
