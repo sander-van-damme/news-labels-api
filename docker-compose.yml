@@ -2,7 +2,7 @@ version: '3'
 
 services:
   app:
-    requires:
+    depends_on:
       - redis
     build: .
     container_name: news-labels-api
