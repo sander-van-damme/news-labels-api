@@ -25,7 +25,7 @@ def _to_string(obj):
 @cache.memoize(timeout=604800)  # Cache for 1 week
 def get_embedding(open_ai_api_key, input_data):
     client = OpenAI(api_key=open_ai_api_key)
-    response = client.embeddings.create(model="text-embedding-ada-002", input=_to_string(input_data))
+    response = client.embeddings.create(model="text-embedding-3-small", input=_to_string(input_data))
     return response.data[0].embedding
 
 
@@ -43,7 +43,7 @@ def get_clusters(embeddings):
 def get_label(open_ai_api_key, input_data):
     client = OpenAI(api_key=open_ai_api_key)
     completion = client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model="gpt-3.5-turbo-0125",
         max_tokens=60,
         messages=[
             {"role": "system", "content": "You always respond with only a ten word summary of what you received."},
